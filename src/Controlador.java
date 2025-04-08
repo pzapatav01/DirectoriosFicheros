@@ -1,16 +1,31 @@
 import java.util.List;
 
+/**
+ * Clase que controla el flujo principal del juego.
+ * Gestiona la creación y carga de jugadores y escenarios.
+ * 
+ * @author Carlos de Tena Muñoz
+ * @author Paloma Zapata Velázquez
+ * @version 2.0
+ */
 public class Controlador {
     private Jugador jugador;
     private Escenario escenarioActual;
     private VistaInicio vistaInicio;
     private VistaEscenario vistaEscenario;
     
+    /**
+     * Constructor que inicializa las vistas del juego.
+     */
     public Controlador() {
         this.vistaInicio = new VistaInicio();
         this.vistaEscenario = new VistaEscenario();
     }
     
+    /**
+     * Método principal que inicia el flujo del juego.
+     * Solicita los datos del usuario y gestiona los escenarios.
+     */
     public void iniciar() {
         // Solicitar nombre de usuario
         String nombreUsuario = vistaInicio.pedirNombreUsuario();
@@ -38,6 +53,10 @@ public class Controlador {
         vistaEscenario.cerrar();
     }
     
+    /**
+     * Método que gestiona la selección y creación de escenarios.
+     * Permite al usuario elegir entre cargar un escenario existente o crear uno nuevo.
+     */
     private void gestionarEscenarios() {
         List<String> escenarios = Escenario.listarEscenarios();
         
@@ -55,6 +74,10 @@ public class Controlador {
         }
     }
     
+    /**
+     * Método que permite la creación de un nuevo escenario.
+     * Solicita el nombre y la configuración del escenario y lo guarda en el sistema.
+     */
     private void crearNuevoEscenario() {
         String nombreEscenario = vistaEscenario.pedirNombreEscenario();
         escenarioActual = new Escenario(nombreEscenario);
@@ -70,6 +93,11 @@ public class Controlador {
         vistaEscenario.mostrarEscenario(escenarioActual);
     }
     
+    /**
+     * Método que carga un escenario existente.
+     * 
+     * @param nombreEscenario Nombre del escenario a cargar.
+     */
     private void cargarEscenario(String nombreEscenario) {
         escenarioActual = Escenario.cargar(nombreEscenario);
         
