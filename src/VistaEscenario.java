@@ -1,52 +1,45 @@
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase responsable de mostrar el escenario y capturar las teclas para mover al jugador.
+ * 
+ * @author Carlos de Tena Muñoz
+ * @author Paloma Zapata Velázquez
+ * @version 2.0
+ */
 public class VistaEscenario {
     private Scanner scanner;
-    
+
+    /**
+     * Constructor que inicializa el escáner para leer las entradas del usuario.
+     */
     public VistaEscenario() {
         scanner = new Scanner(System.in);
     }
-    
+
+    /**
+     * Muestra el escenario actual en la consola.
+     * @param escenario 
+     */
     public void mostrarEscenario(Escenario escenario) {
-        System.out.println("\n=== Escenario: " + escenario.getNombre() + " ===");
-        for (String linea : escenario.getConfiguracion()) {
-            System.out.println(linea);
-        }
-        System.out.println("===========================\n");
+        System.out.println("\n=== Escenario ===");
+        escenario.mostrar();
+        System.out.println("\nControla el jugador con las teclas: WASD");
     }
-    
-    public int mostrarMenuEscenarios(List<String> escenarios) {
-        System.out.println("\n=== Escenarios disponibles ===");
-        for (int i = 0; i < escenarios.size(); i++) {
-            System.out.println((i + 1) + ". " + escenarios.get(i));
-        }
-        System.out.println("0. Crear nuevo escenario");
-        System.out.print("Selecciona una opción: ");
-        return Integer.parseInt(scanner.nextLine());
+
+    /**
+     * Lee el movimiento del jugador desde el teclado.
+     * @return tecla pulsada
+     */
+    public char leerMovimiento() {
+        System.out.print("Movimientos (WASD): ");
+        return scanner.nextLine().toLowerCase().charAt(0);
     }
-    
-    public String pedirNombreEscenario() {
-        System.out.print("Introduce el nombre del nuevo escenario: ");
-        return scanner.nextLine();
-    }
-    
-    public List<String> crearConfiguracionEscenario() {
-        System.out.println("Introduce las líneas del escenario (línea vacía para terminar):");
-        Escenario escenario = new Escenario("temp");
-        
-        String linea;
-        while (true) {
-            linea = scanner.nextLine();
-            if (linea.isEmpty()) {
-                break;
-            }
-            escenario.agregarLinea(linea);
-        }
-        
-        return escenario.getConfiguracion();
-    }
-    
+
+    /**
+     * Cierra el escáner.
+     */
     public void cerrar() {
         scanner.close();
     }
